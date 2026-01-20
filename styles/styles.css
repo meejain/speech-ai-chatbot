@@ -71,23 +71,17 @@
 }
 
 body {
+  display: none;
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
-  visibility: hidden;
 }
 
 body.appear {
-  visibility: visible;
-}
-
-main {
-  /* Prevent CLS from content loading */
-  contain: layout style paint;
-  min-height: 100vh;
+  display: block;
 }
 
 header {
@@ -220,9 +214,6 @@ main img {
   max-width: 100%;
   width: auto;
   height: auto;
-  /* Provide default aspect ratio to prevent CLS */
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
 }
 
 .icon {
