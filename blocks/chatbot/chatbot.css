@@ -224,6 +224,9 @@
   box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
   transition: all 0.3s ease;
   z-index: 999;
+  /* Prevent layout shifts from fixed positioning */
+  will-change: transform;
+  contain: layout style paint;
 }
 
 .open-btn:hover {

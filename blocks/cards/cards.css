@@ -5,11 +5,36 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
   gap: 24px;
+  /* Prevent layout shift during card rendering */
+  min-height: 200px;
 }
 
 .cards > ul > li {
   border: 1px solid #dadada;
   background-color: var(--background-color);
+  /* Reserve space for cards to prevent CLS */
+  min-height: 350px;
+  contain: layout style;
+}
+
+/* Loading state skeleton */
+.cards[data-block-status="loading"] > ul > li {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #e0e0e0 50%,
+    #f0f0f0 100%
+  );
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-loading {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .cards .cards-card-body {
@@ -18,6 +43,9 @@
 
 .cards .cards-card-image {
   line-height: 0;
+  /* Prevent CLS from image loading */
+  min-height: 193px;
+  background-color: #f0f0f0;
 }
 
 .cards > ul > li img {

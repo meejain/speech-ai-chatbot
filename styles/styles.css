@@ -71,17 +71,18 @@
 }
 
 body {
-  display: none;
   margin: 0;
   background-color: var(--background-color);
   color: var(--text-color);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 body.appear {
-  display: block;
+  opacity: 1;
 }
 
 header {
@@ -90,12 +91,13 @@ header {
 
 header .header,
 footer .footer {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
 }
 
 header .header[data-block-status="loaded"],
 footer .footer[data-block-status="loaded"] {
-  visibility: visible;
+  opacity: 1;
 }
 
 h1,
@@ -214,6 +216,8 @@ main img {
   max-width: 100%;
   width: auto;
   height: auto;
+  /* Prevent layout shift during image load */
+  content-visibility: auto;
 }
 
 .icon {
