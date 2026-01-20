@@ -18,7 +18,11 @@ let speechTimeout = null;
 let accumulatedTranscript = '';
 const SPEECH_DELAY_MS = 3000; // Wait 3 seconds of silence before sending
 
-// Configuration
+// ============================================================================
+// CONFIGURATION
+// ============================================================================
+
+// Repository Configuration
 const ORG = 'meejain';
 const REPO = 'speech-ai-chatbot';
 
@@ -32,6 +36,21 @@ function getHTMLFile() {
 }
 
 const HTML_FILE = getHTMLFile();
+
+// ============================================================================
+// INTEGRATION MODE SELECTION
+// ============================================================================
+// Choose your integration approach:
+// - 'DIRECT_OPENAI': Call OpenAI APIs directly from browser (default)
+// - 'POWER_AUTOMATE': Use Microsoft Power Automate workflow (commented out below)
+//
+// To use Power Automate:
+// 1. Set: const INTEGRATION_MODE = 'POWER_AUTOMATE';
+// 2. Uncomment the Power Automate section at the bottom of this file
+// 3. Set your POWER_AUTOMATE_URL
+// ============================================================================
+
+const INTEGRATION_MODE = 'DIRECT_OPENAI'; // Change to 'POWER_AUTOMATE' if using Power Automate
 
 // AI Configuration cache
 let cachedAIConfig = null;
@@ -1159,9 +1178,9 @@ export default function decorate(block) {
       </div>
       <div class="messages">
         <div class="bot-msg">
-          🤖 Hi! I'm your AI-Powered Content Updater.<br><br>
+          🤖 Hi! I'm your AI-Powered & Voice-Enabled Content Updater.<br><br>
           <strong>Enable me with AI tokens to:</strong><br>
-          ✨ Understand your intent<br>
+          ✨ Understand your intent (type or speak)<br>
           🎯 Analyze page structure<br>
           🎨 Generate custom images<br>
           📝 Write engaging content<br>
@@ -1170,7 +1189,8 @@ export default function decorate(block) {
           • "Update hero block with New York skyline"<br>
           • "Update columns block with something about Paris and Zurich"<br>
           • "Change cards block to show sports - Cricket / Football"<br>
-          • Or anything else - I'm smart! 😊
+          • Or anything else - I'm smart! 😊<br><br>
+          🎤 <em>Tip: Click the mic button to use voice input!</em>
         </div>
       </div>
       <div class="input-container">
@@ -1608,3 +1628,168 @@ async function processMessage(userInput, msgContainer) {
 }
 
 // Note: No need for parseUserInput anymore - AI handles all parsing and planning!
+
+/* ============================================================================
+ * POWER AUTOMATE INTEGRATION (ALTERNATIVE APPROACH)
+ * ============================================================================
+ * 
+ * WHEN TO USE POWER AUTOMATE vs DIRECT OPENAI:
+ * 
+ * 📊 DIRECT OPENAI (Current Default):
+ * ✅ Faster - No intermediate workflow overhead
+ * ✅ Simpler - Less configuration required
+ * ✅ Real-time - Direct API calls from browser
+ * ❌ Exposed API keys (stored in ai-config.txt on client)
+ * ❌ Limited to OpenAI features only
+ * ❌ No approval workflows or additional logic
+ * 
+ * 🔄 POWER AUTOMATE:
+ * ✅ Secure - API keys stay in Power Automate (server-side)
+ * ✅ Flexible - Add approvals, notifications, Teams integration
+ * ✅ Auditable - Full logging and monitoring in Power Platform
+ * ✅ Extensible - Connect to 400+ Microsoft connectors
+ * ✅ Enterprise-ready - Compliance, governance, DLP policies
+ * ❌ Slower - Additional network hop through workflow
+ * ❌ Complex - Requires Power Automate license and setup
+ * 
+ * ============================================================================
+ * SETUP STEPS FOR POWER AUTOMATE:
+ * ============================================================================
+ * 
+ * 1️⃣ CREATE POWER AUTOMATE FLOW:
+ *    - Go to https://make.powerautomate.com
+ *    - Create new "Instant cloud flow"
+ *    - Add trigger: "When an HTTP request is received"
+ * 
+ * 2️⃣ ADD FLOW ACTIONS:
+ *    a) Parse JSON (parse incoming request body)
+ *    b) OpenAI GPT-4 connector (analyze request)
+ *    c) OpenAI DALL-E connector (generate images)
+ *    d) HTTP action (upload to DA API)
+ *    e) HTTP action (trigger EDS preview)
+ *    f) HTTP action (trigger EDS publish)
+ *    g) Response (return success/error)
+ * 
+ * 3️⃣ CONFIGURE THIS FILE:
+ *    - Copy webhook URL from step 1
+ *    - Set POWER_AUTOMATE_URL below
+ *    - Set INTEGRATION_MODE = 'POWER_AUTOMATE' at the top
+ *    - Uncomment the triggerPowerAutomateFlow function
+ * 
+ * 4️⃣ UPDATE processMessage() FUNCTION:
+ *    Replace the AI calls with:
+ *    if (INTEGRATION_MODE === 'POWER_AUTOMATE') {
+ *      await triggerPowerAutomateFlow(userInput, botMsg);
+ *    } else {
+ *      // existing direct OpenAI calls
+ *    }
+ * 
+ * ============================================================================
+ * BEST PRACTICES:
+ * ============================================================================
+ * 
+ * 🔒 Security:
+ *    - Store OpenAI keys in Power Automate connections (encrypted)
+ *    - Use managed identities for Azure resources
+ *    - Enable DLP policies to prevent data leakage
+ * 
+ * ⚡ Performance:
+ *    - Add timeout handling (flows can take 5-10 seconds)
+ *    - Implement retry logic for transient failures
+ *    - Consider async processing for large operations
+ * 
+ * 📝 Monitoring:
+ *    - Enable run history in Power Automate
+ *    - Set up alerts for failed runs
+ *    - Track API usage and costs
+ * 
+ * 🧪 Testing:
+ *    - Test with sample requests before enabling
+ *    - Verify error handling for all scenarios
+ *    - Check timeout behavior
+ * 
+ * ============================================================================
+ */
+
+/*
+// Power Automate Configuration
+const POWER_AUTOMATE_URL = 'YOUR_POWER_AUTOMATE_WEBHOOK_URL_HERE';
+
+async function triggerPowerAutomateFlow(userPrompt, botMessageElement) {
+  console.log('🔄 Triggering Power Automate flow...');
+  
+  // Get configuration tokens
+  const daImsToken = await getDATokenFromConfig();
+  const adminAuthToken = await getAdminAuthTokenFromConfig();
+  
+  if (!daImsToken || !adminAuthToken) {
+    botMessageElement.className = 'bot-msg error';
+    botMessageElement.innerHTML = `
+      <div class="error-message">
+        ⚠️ <strong>Configuration Required</strong><br>
+        <span class="error-text">Please configure DA_IMS_TOKEN and ADMIN_AUTH_TOKEN in da-config.txt</span>
+      </div>
+    `;
+    return;
+  }
+  
+  // Prepare request body for Power Automate
+  const requestBody = {
+    prompt: userPrompt,
+    timestamp: new Date().toISOString(),
+    source: 'web-chatbot',
+    org: ORG,
+    repo: REPO,
+    htmlFile: HTML_FILE,
+    currentPath: window.location.pathname,
+    currentHost: window.location.host,
+    fullUrl: window.location.href,
+    daImsToken: daImsToken,
+    adminAuthToken: adminAuthToken
+  };
+  
+  try {
+    // Call Power Automate webhook
+    const response = await fetch(POWER_AUTOMATE_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestBody)
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Power Automate returned ${response.status}: ${response.statusText}`);
+    }
+    
+    const result = await response.json();
+    console.log('✅ Power Automate flow completed:', result);
+    
+    // Update bot message with success
+    botMessageElement.className = 'bot-msg success';
+    botMessageElement.innerHTML = `
+      <div class="success-message">
+        ✅ <strong>Content Updated Successfully!</strong><br>
+        <span class="prompt-text">Request: "${userPrompt}"</span><br>
+        <span class="status-text">Power Automate has processed your request</span><br>
+        ${result.imageUrl ? `<img src="${result.imageUrl}" alt="Generated" class="generated-image"><br>` : ''}
+        🌐 <a href="${result.previewUrl || '#'}" target="_blank" class="da-url">View Preview</a>
+      </div>
+    `;
+    
+  } catch (error) {
+    console.error('Power Automate flow failed:', error);
+    botMessageElement.className = 'bot-msg error';
+    botMessageElement.innerHTML = `
+      <div class="error-message">
+        ❌ <strong>Power Automate Error</strong><br>
+        <span class="error-text">${error.message}</span><br>
+        <span class="retry-text">Please check your Power Automate flow and try again.</span>
+      </div>
+    `;
+  }
+}
+
+// TO USE POWER AUTOMATE: Replace the processMessage() AI calls with:
+// await triggerPowerAutomateFlow(userInput, botMsg);
+*/
