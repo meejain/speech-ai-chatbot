@@ -211,7 +211,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateHeadings(main);
+  // decorateHeadings(main); // DISABLED: Causes CLS (0.377) - headings animate with translateX
 }
 
 /**

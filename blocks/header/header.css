@@ -7,9 +7,6 @@ header .nav-wrapper {
   top: 0;
   left: 0;
   right: 0;
-  /* Prevent CLS from fixed header */
-  will-change: transform;
-  contain: layout style paint;
 }
 
 header {
@@ -193,9 +190,6 @@ header nav .nav-brand img {
   height: 50px;
   margin-right: 12px;
   object-fit: contain;
-  /* Prevent CLS from logo loading */
-  aspect-ratio: 1;
-  display: block;
 }
 
 /* sections */
@@ -325,11 +319,6 @@ header nav .nav-sections button {
       opacity: 1;
       transform: translateY(0);
     }
-  }
-  
-  /* Use will-change for smoother animations without CLS */
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    will-change: transform, opacity;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul::before {

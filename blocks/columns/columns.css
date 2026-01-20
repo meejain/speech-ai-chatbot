@@ -5,10 +5,6 @@
 
 .columns img {
   width: 100%;
-  height: auto;
-  /* Prevent layout shift while image loads */
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
 }
 
 .columns > div > div {

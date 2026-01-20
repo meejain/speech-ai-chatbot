@@ -9,9 +9,6 @@ main .carousel {
     scroll-behavior: smooth;
     position: relative;
     height: 60vw;
-    /* Prevent CLS during carousel initialization */
-    contain: layout style;
-    will-change: scroll-position;
 }
 
 main .carousel picture {
@@ -76,8 +73,6 @@ main .carousel-wrapper .carousel-buttons {
     gap: 20px;
     bottom: 5px;
     height: 20px;
-    /* Prevent CLS from carousel controls */
-    contain: layout style paint;
 }
 
 main .carousel-buttons button {

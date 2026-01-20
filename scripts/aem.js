@@ -393,6 +393,10 @@ function createOptimizedPicture(
       const img = document.createElement('img');
       img.setAttribute('loading', eager ? 'eager' : 'lazy');
       img.setAttribute('alt', alt);
+      // Add explicit width/height to prevent CLS from unsized images
+      // Using 4:3 aspect ratio as default for card images
+      img.setAttribute('width', br.width);
+      img.setAttribute('height', Math.round(br.width * 0.75));
       picture.appendChild(img);
       img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
     }

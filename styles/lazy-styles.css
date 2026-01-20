@@ -1,16 +1,1 @@
 /* add global styles that can be loaded post LCP here */
-
-/* Optimize lazy-loaded images to prevent CLS */
-img[loading="lazy"] {
-  content-visibility: auto;
-}
-
-/* Add smooth transitions for elements that load after LCP */
-.section[data-section-status="loading"] {
-  min-height: 200px;
-}
-
-/* Prevent CLS from dynamic content insertion */
-.block[data-block-status="loading"] {
-  min-height: 100px;
-}
