@@ -217,7 +217,18 @@ main img {
 
 /* Let browser use width/height attributes to calculate aspect ratio and reserve space */
 main picture img[width][height] {
+  display: block;
+  width: 100%;
+  height: auto;
   aspect-ratio: auto; /* Browser calculates from width/height attributes */
+}
+
+/* Ensure proper rendering on mobile */
+@media (width < 600px) {
+  main picture img {
+    max-width: 100%;
+    object-fit: cover;
+  }
 }
 
 .icon {
@@ -245,7 +256,13 @@ main > .section > div {
 main > .section:first-of-type {
   margin-top: 0;
   /* Reserve space for first section to prevent CLS */
-  min-height: 400px;
+  min-height: 280px; /* Mobile optimized */
+}
+
+@media (width >= 600px) {
+  main > .section:first-of-type {
+    min-height: 380px;
+  }
 }
 
 @media (width >= 900px) {
