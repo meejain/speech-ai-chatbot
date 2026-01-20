@@ -1,20 +1,225 @@
-footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+/* stylelint-disable no-descending-specificity */
+
+/* Footer wrapper - light gray background */
+footer.footer-wrapper {
+  background-color: var(--bg-color-lightgrey);
+  padding: 80px 0 32px;
 }
 
-footer .footer > div {
-  margin: auto;
+/* Remove margin from section wrapper inside footer */
+footer .section,
+footer .footer .section {
+  margin: 0 !important;
+}
+
+footer .section > div,
+footer .footer .section > div {
+  padding: 0;
+}
+
+footer .footer {
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  margin: auto;
+  padding: 0 24px;
+  font-size: var(--body-font-size-xs);
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer a {
+  color: light-dark(var(--text-color), #fff);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+footer .footer a:hover {
+  color: var(--link-color);
+}
+
+/* Main content wrapper */
+footer .footer .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Adobe Experience Manager title */
+footer .footer .default-content-wrapper > h3 {
+  color: light-dark(var(--dark-color), #fff);
+  font-size: var(--heading-font-size-m);
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+footer .footer .default-content-wrapper > h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Main navigation list - create horizontal grid layout */
+footer .footer .default-content-wrapper > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* Each column is a list item */
+footer .footer .default-content-wrapper > ul > li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* "Let's Connect!" button */
+footer .footer .default-content-wrapper > p:last-of-type strong a {
+  display: inline-block;
+  padding: 8px 20px;
+  border: 2px solid light-dark(var(--text-color), white);
+  border-radius: 100px;
+  font-weight: 600;
+  text-align: center;
+  background-color: transparent;
+  color: light-dark(var(--text-color), white);
+  transition: all 0.3s;
+}
+
+footer .footer .default-content-wrapper > p:last-of-type strong a:hover {
+  background-color: white;
+  color: var(--text-color);
+  border-color: var(--text-color);
+}
+
+/* Column headings (the button-container links) */
+footer .footer .default-content-wrapper > ul > li > p.button-container {
+  margin: 0 0 12px;
+}
+
+footer .footer .default-content-wrapper > ul > li > p.button-container a {
+  color: light-dark(var(--dark-color), #fff);
+  font-size: var(--heading-font-size-xs);
+  font-weight: 700;
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline;
+}
+
+/* Nested lists (links under each column) */
+footer .footer .default-content-wrapper > ul > li > ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer .default-content-wrapper > ul > li > ul > li {
+  margin-bottom: 8px;
+}
+
+footer .footer .default-content-wrapper > ul > li > ul > li:last-child {
+  margin-bottom: 0;
+}
+
+footer .footer .default-content-wrapper > ul > li > ul > li a {
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+}
+
+/* Bottom section (copyright) - appears after the section */
+footer .footer > div > div:last-child {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #ddd;
+}
+
+footer .footer > div > div:last-child .default-content-wrapper p {
+  color: var(--dark-color);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+footer .footer > div > div:last-child .default-content-wrapper p:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile: stack columns vertically */
+@media (width < 900px) {
+  footer.footer-wrapper {
+    padding: 40px 0 24px;
+  }
+
+  footer .footer {
+    padding: 0 24px;
+  }
+
+  /* Show the main h3 on mobile */
+  footer .footer .default-content-wrapper > h3 {
+    display: block;
+  }
+}
+
+/* Desktop: horizontal grid layout */
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer.footer-wrapper {
+    padding: 80px 0 32px;
+  }
+
+  footer .footer {
+    padding: 0 60px;
+  }
+
+  /* Create wrapper with Adobe Experience Manager on left + 3 columns */
+  footer .footer .default-content-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  footer .footer .default-content-wrapper > h3 {
+    margin: 0;
+  }
+
+  /* Create 3-column grid layout for the main navigation */
+  footer .footer .default-content-wrapper > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  /* "Let's Connect!" button aligns to the right */
+  footer .footer .default-content-wrapper > p {
+    text-align: right;
+    margin-bottom: 40px;
+  }
+
+  /* Bottom section - flex layout with copyright left, links right */
+  footer .footer > div > div:last-child .default-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  footer .footer > div > div:last-child .default-content-wrapper p {
+    margin: 0;
+  }
+
+  footer .footer > div > div:last-child .default-content-wrapper p:first-child {
+    text-align: left;
+  }
+
+  footer .footer > div > div:last-child .default-content-wrapper p:last-child {
+    text-align: right;
+  }
+}
+
+/* Larger screens */
+@media (width >= 1200px) {
+  footer .footer {
+    padding: 0 80px;
   }
 }
