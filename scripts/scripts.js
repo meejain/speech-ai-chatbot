@@ -25,7 +25,6 @@ import { enableDescription } from './utils.js';
  * @param {string} options.imageType - The type of image for AI lookup (e.g., 'hero', 'carousel', 'cards')
  * @param {boolean} options.replaceLink - If true, replaces the link with the picture. If false, prepends picture to link.
  * @param {string} options.selector - Optional custom selector for finding links (default: 'a[href*="assets"]')
- * @param {boolean} options.eager - If true, images will load eagerly (for above-the-fold content)
  * @returns {Promise<Array>} Array of created picture elements
  */
 export async function processImageLinks(container, options = {}) {
@@ -33,7 +32,6 @@ export async function processImageLinks(container, options = {}) {
     imageType = null,
     replaceLink = true,
     selector = 'a[href*="assets"]',
-    eager = false,
   } = options;
 
   const links = container.querySelectorAll(selector);
@@ -85,8 +83,7 @@ export async function processImageLinks(container, options = {}) {
       imageIndex++;
     }
 
-    // Use eager loading for hero images (above the fold)
-    const picture = createOptimizedPicture(imageUrl, '', eager);
+    const picture = createOptimizedPicture(imageUrl);
     createdPictures.push(picture);
 
     if (replaceLink) {
@@ -113,24 +110,14 @@ async function buildHeroBlock(main) {
 
   if (link && link.href && link.href.includes('assets')) {
     // Use the global processImageLinks utility with replaceLink=false to prepend picture
-    // Set eager=true for hero images (above the fold) to avoid CLS
     await processImageLinks(main, {
       imageType: 'hero',
       replaceLink: false,
       selector: 'a[href*="assets"]',
-      eager: true, // Critical: Load hero images eagerly to prevent CLS
     });
   }
 
   const picture = main.querySelector('picture');
-  // Add fetchpriority="high" to hero image for faster LCP
-  if (picture) {
-    const img = picture.querySelector('img');
-    if (img) {
-      img.setAttribute('fetchpriority', 'high');
-    }
-  }
-  
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');
@@ -224,7 +211,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  // decorateHeadings(main); // Disabled to prevent CLS from heading animations
+  decorateHeadings(main);
 }
 
 /**

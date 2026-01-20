@@ -212,15 +212,8 @@ button.secondary {
 
 main img {
   max-width: 100%;
+  width: auto;
   height: auto;
-}
-
-/* Let browser use width/height attributes to calculate aspect ratio and reserve space */
-main picture img[width][height] {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: auto; /* Browser calculates from width/height attributes */
 }
 
 .icon {
@@ -247,13 +240,6 @@ main > .section > div {
 
 main > .section:first-of-type {
   margin-top: 0;
-}
-
-/* Reserve space for hero section to prevent CLS - desktop only */
-@media (width >= 900px) {
-  main > .section:first-of-type {
-    min-height: 500px;
-  }
 }
 
 @media (width >= 900px) {

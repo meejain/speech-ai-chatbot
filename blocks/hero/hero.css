@@ -33,6 +33,5 @@
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
-    min-height: 500px; /* Desktop needs larger height to prevent CLS */
   }
 }
