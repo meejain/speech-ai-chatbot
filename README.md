@@ -6,7 +6,82 @@ Speak or type to update website content. AI generates images, transforms content
 
 ## 🎥 Demo Video
 
-> **[📹 Watch Demo](YOUR_VIDEO_LINK_HERE)** - Voice → AI → Live in 60 seconds
+<!-- 
+TO ADD YOUR VIDEO:
+
+METHOD 1: GitHub Native Upload (EASIEST - Recommended) ⭐
+1. Click "Edit" (pencil icon) on this README in GitHub
+2. Drag & drop your .mp4 file (H.264 encoded, max 10MB free / 100MB paid)
+3. GitHub auto-uploads and generates embed code
+4. Delete this comment and the placeholder below
+5. Your video will play inline!
+
+METHOD 2: External Hosting
+YouTube: https://youtu.be/YOUR_VIDEO_ID
+Loom: https://www.loom.com/share/YOUR_VIDEO_ID
+Vimeo: https://vimeo.com/YOUR_VIDEO_ID
+-->
+
+> **📹 Demo Video** - Voice → AI → Live in 60 seconds
+> 
+> *Drag & drop your `.mp4` demo video here when editing on GitHub*
+
+<!-- After uploading, GitHub will auto-generate something like:
+https://user-images.githubusercontent.com/12345678/your-video.mp4
+-->
+
+<details>
+<summary>📖 Detailed Video Upload Guide</summary>
+
+### Method 1: GitHub Native Upload ⭐ (Recommended)
+
+**Why this is best:**
+- ✅ No external platform needed
+- ✅ Plays inline in README
+- ✅ Fast and simple
+- ✅ No ads or tracking
+- ✅ Free up to 10MB (100MB with paid)
+
+**Steps:**
+```
+1. Record your demo (.mp4, H.264 codec recommended)
+   Tools: OBS, Loom, QuickTime, Windows Game Bar
+
+2. Go to GitHub.com → Your repository → README.md
+
+3. Click Edit (✏️ pencil icon)
+
+4. Drag & drop your video file into the editor
+
+5. GitHub uploads and generates code like:
+   https://user-images.githubusercontent.com/...your-video.mp4
+
+6. Commit changes → Video plays inline! 🎉
+```
+
+**Video Requirements:**
+- Format: `.mp4`, `.mov`, `.webm`
+- Codec: H.264 (best compatibility)
+- Max Size: 10MB (free) or 100MB (paid accounts)
+- Recommended: 1280x720, 30fps, < 2 minutes
+
+---
+
+### Method 2: External Hosting
+
+If your video is > 10MB or you prefer external hosting:
+
+**YouTube:**
+```markdown
+[![Demo](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://youtu.be/VIDEO_ID)
+```
+
+**Loom:**
+```markdown
+[Watch Demo](https://www.loom.com/share/YOUR_VIDEO_ID)
+```
+
+</details>
 
 ## ✨ Key Features
 
