@@ -6,7 +6,7 @@
 .hero {
   position: relative;
   padding: 40px 24px;
-  min-height: 280px; /* Optimized for mobile to prevent CLS */
+  min-height: 300px;
 }
 
 .hero h1 {
@@ -30,20 +30,9 @@
   height: 100%;
 }
 
-/* Ensure stable height on mobile to prevent CLS */
-@media (width < 600px) {
-  .hero {
-    min-height: 300px; /* Slightly larger for mobile content */
-  }
-  
-  .hero img {
-    min-height: 300px;
-  }
-}
-
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
-    min-height: 500px; /* Larger min-height for desktop to prevent CLS */
+    min-height: 500px; /* Desktop needs larger height to prevent CLS */
   }
 }

@@ -223,14 +223,6 @@ main picture img[width][height] {
   aspect-ratio: auto; /* Browser calculates from width/height attributes */
 }
 
-/* Ensure proper rendering on mobile */
-@media (width < 600px) {
-  main picture img {
-    max-width: 100%;
-    object-fit: cover;
-  }
-}
-
 .icon {
   display: inline-block;
   height: 24px;
@@ -255,16 +247,9 @@ main > .section > div {
 
 main > .section:first-of-type {
   margin-top: 0;
-  /* Reserve space for first section to prevent CLS */
-  min-height: 280px; /* Mobile optimized */
 }
 
-@media (width >= 600px) {
-  main > .section:first-of-type {
-    min-height: 380px;
-  }
-}
-
+/* Reserve space for hero section to prevent CLS - desktop only */
 @media (width >= 900px) {
   main > .section:first-of-type {
     min-height: 500px;
