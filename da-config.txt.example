@@ -1,0 +1,8 @@
+# DA (Document Authoring) Configuration
+# Copy this file to da-config.txt and fill in your actual tokens
+
+# DA IMS Token - Get from https://da.live
+DA_IMS_TOKEN="your-da-ims-token-here"
+
+# Admin Auth Token - Get from your DA admin settings
+ADMIN_AUTH_TOKEN="your-admin-auth-token-here"

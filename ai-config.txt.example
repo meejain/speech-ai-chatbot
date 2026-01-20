@@ -1,0 +1,9 @@
+# AI Configuration for ChatbotV1
+# Copy this file to ai-config.txt and fill in your actual credentials
+
+# OpenAI GPT-4 - Content Intelligence & Planning
+OPENAI_CHAT_URI="https://api.openai.com/v1/chat/completions"
+OPENAI_TOKEN="sk-your-openai-api-key-here"
+
+# OpenAI DALL-E 3 - Image Generation
+OPENAI_IMAGE_URI="https://api.openai.com/v1/images/generations"

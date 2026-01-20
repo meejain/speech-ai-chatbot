@@ -7,3 +7,7 @@ helix-importer-ui
 .DS_Store
 *.bak
 .idea
+
+# Configuration files with sensitive tokens
+da-config.txt
+ai-config.txt

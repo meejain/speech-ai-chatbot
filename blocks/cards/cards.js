@@ -1,6 +1,23 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { processImageLinks } from '../../scripts/scripts.js';
+import { replaceBlockContent } from '../../scripts/utils.js';
 
-export default function decorate(block) {
+export default async function decorate(block) {
+  // Process any image links (links with 'assets' in href) before building the card structure
+  await processImageLinks(block, {
+    imageType: 'cards',
+    replaceLink: true,
+  });
+
+  // Replace text content with AI-generated content
+  // Limit text for better UI balance with images (cards are more compact)
+  await replaceBlockContent(block, 'cards', {
+    selector: 'p, h1, h2, h3, h4, h5, h6',
+    limitText: true,
+    maxSentences: 3,
+    maxChars: 200,
+  });
+
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
