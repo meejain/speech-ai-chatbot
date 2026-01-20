@@ -10,6 +10,8 @@
 .cards > ul > li {
   border: 1px solid #dadada;
   background-color: var(--background-color);
+  /* Contain layout shifts within card */
+  contain: layout;
 }
 
 .cards .cards-card-body {
@@ -18,10 +20,17 @@
 
 .cards .cards-card-image {
   line-height: 0;
+  /* Reserve space for image to prevent CLS */
+  min-height: 193px;
+  display: block;
+  overflow: hidden;
 }
 
 .cards > ul > li img {
   width: 100%;
+  height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  /* Reserve space to prevent CLS */
+  min-height: 193px;
 }
