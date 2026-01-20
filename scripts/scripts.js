@@ -216,7 +216,7 @@ export async function decorateMain(main) {
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateHeadings(main);
+  // decorateHeadings(main); // Disabled to prevent CLS from heading animations
 }
 
 /**
