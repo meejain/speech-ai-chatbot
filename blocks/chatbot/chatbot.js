@@ -1160,16 +1160,16 @@ export default function decorate(block) {
       <div class="messages">
         <div class="bot-msg">
           🤖 Hi! I'm your AI-Powered Content Updater.<br><br>
-          <strong>I use GPT-4 + DALL-E to:</strong><br>
+          <strong>Enable me with AI tokens to:</strong><br>
           ✨ Understand your intent<br>
           🎯 Analyze page structure<br>
           🎨 Generate custom images<br>
           📝 Write engaging content<br>
           🚀 Update & publish instantly<br><br>
           <strong>Just tell me what you want:</strong><br>
-          • "Update hero with London skyline"<br>
-          • "Make columns about Paris and Zurich"<br>
-          • "Change highlights to show Tokyo"<br>
+          • "Update hero block with New York skyline"<br>
+          • "Update columns block with something about Paris and Zurich"<br>
+          • "Change cards block to show sports - Cricket / Football"<br>
           • Or anything else - I'm smart! 😊
         </div>
       </div>
@@ -1184,7 +1184,7 @@ export default function decorate(block) {
         </button>
       </div>
     </div>
-    <button class="open-btn">✨ Content Updater</button>
+    <button class="open-btn">How may I help you ?</button>
   `;
   
   block.innerHTML = chatbotHTML;
