@@ -393,6 +393,9 @@ function createOptimizedPicture(
       const img = document.createElement('img');
       img.setAttribute('loading', eager ? 'eager' : 'lazy');
       img.setAttribute('alt', alt);
+      // Add width/height to prevent CLS - browser can reserve space before image loads
+      img.setAttribute('width', br.width);
+      img.setAttribute('height', Math.round(br.width * 9 / 16)); // 16:9 aspect ratio
       picture.appendChild(img);
       img.setAttribute('src', `${pathname}?width=${br.width}&format=${ext}&optimize=medium`);
     }

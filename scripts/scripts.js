@@ -123,6 +123,14 @@ async function buildHeroBlock(main) {
   }
 
   const picture = main.querySelector('picture');
+  // Add fetchpriority="high" to hero image for faster LCP
+  if (picture) {
+    const img = picture.querySelector('img');
+    if (img) {
+      img.setAttribute('fetchpriority', 'high');
+    }
+  }
+  
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const section = document.createElement('div');

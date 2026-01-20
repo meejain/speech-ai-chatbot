@@ -216,6 +216,12 @@ main img {
   height: auto;
 }
 
+/* Prevent CLS for responsive images - maintain aspect ratio */
+main picture img {
+  width: 100%;
+  height: auto;
+}
+
 .icon {
   display: inline-block;
   height: 24px;
